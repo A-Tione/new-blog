@@ -3,6 +3,7 @@ import {UAParser} from 'ua-parser-js';
 import React, {useEffect, useState} from 'react';
 import {getDatabaseConnection} from '../lib/getDatabaseConnection';
 import {Post} from '../src/entity/Post';
+import Link from 'next/link';
 
 type Props = {
   posts: Post[],
@@ -13,16 +14,16 @@ type Props = {
   }
 }
 const index: NextPage<Props> = (props) => {
-  const {browser, posts} = props;
+  const {posts} = props;
   console.log(posts);
-  const [width, setWidth] = useState(0);
-  useEffect(() => {
-    const w = document.documentElement.clientWidth;
-    setWidth(w);
-  }, []);
   return (
     <div>
-      {posts.map(post => <div key={post.id}>{post.title}</div>)}
+      <h1>文章列表</h1>
+      {posts.map(post =>
+        <Link key={post.id} href={`/posts/${post.id}`}>
+          <a>{post.title}</a>
+        </Link>
+      )}
     </div>
   );
 };
