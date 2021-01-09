@@ -10,7 +10,7 @@ const PostsNew: NextPage = () => {
       {label: '标题', type: 'text', key: 'title'},
       {label: '内容', type: 'textarea', key: 'content'}
     ],
-    button: <button type="submit">提交</button>,
+    buttons: <button type="submit">提交</button>,
     submit: {
       request: formData => axios.post('/api/v1/posts', formData),
       message: '提交成功'
