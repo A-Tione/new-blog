@@ -1,28 +1,26 @@
-import {NextApiHandler} from 'next';
-import {getDatabaseConnection} from '../../../lib/getDatabaseConnection';
-import {User} from '../../../src/entity/User';
-import {useEffect} from 'react';
-import md5 from 'md5';
+import {NextPage} from 'next';
+import axios, {AxiosResponse} from 'axios';
+import {useForm} from '../hooks/useForm';
 
-const signUP: NextApiHandler = async (req, res) => {
-  const {username, password, passwordConfirmation} = req.body;
-  const connection = await getDatabaseConnection();// 第一次链接能不能用 get
-  res.setHeader('Content-Type', 'application/json; charset=utf-8');
-
-  const user = new User();
-  user.username = username.trim();
-  user.password = password;
-  user.passwordConfirmation = passwordConfirmation;
-  await user.validate();
-  if (user.hasErrors()) {
-    res.statusCode = 422;
-    res.write(JSON.stringify(user.errors));
-  } else {
-    await connection.manager.save(user);
-    res.statusCode = 200;
-    res.write(JSON.stringify(user));
-  }
-  res.end();
+const SignUp: NextPage = () => {
+  const {form} = useForm({
+    initFormData: {username: '', password: '', passwordConfirmation: ''}, fields: [
+      {label: '用户名', type: 'text', key: 'username',},
+      {label: '密码', type: 'password', key: 'password',},
+      {label: '确认密码', type: 'password', key: 'passwordConfirmation',}
+    ],
+    buttons: <button type="submit">注册</button>,
+    submit: {
+      request: formData => axios.post(`/api/v1/users`, formData),
+      message: '注册成功'
+    }
+  });
+  return (
+    <>
+      <h1>注册</h1>
+      {form}
+    </>
+  );
 };
 
-export default SignUP;
+export default SignUp;
