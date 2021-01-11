@@ -36,7 +36,7 @@ const PostsIndex: NextPage<Props> = (props) => {
 export default PostsIndex;
 
 export const getStaticProps: GetServerSideProps = async (context) => {
-  const index = context.req.url.indexOf('?')
+  const index = context.req.url.indexOf('?') // url查询参数
   const search = context.req.url.substr(index+1)
   const query = qs.parse(search)
   const page = parseInt(query.page?.toString()) || 1
