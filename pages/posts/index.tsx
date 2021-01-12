@@ -5,6 +5,7 @@ import {Post} from 'src/entity/Post';
 import qs from 'querystring';
 import {getDatabaseConnection} from '../../lib/getDatabaseConnection';
 import {UAParser} from 'ua-parser-js';
+import {usePager} from '../../hooks/usePager';
 
 type Props = {
   posts: Post[];
