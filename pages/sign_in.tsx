@@ -38,6 +38,7 @@ const SignIn: NextPage<{ user: User }> = (props) => {
 export default SignIn;
 
 export const getServerSideProps: GetServerSideProps = withSession(
+  // @ts-ignore
   async (context: GetServerSidePropsContext) => {
     // @ts-ignore
     const user = context.req.session.get('currentUser');
