@@ -1,5 +1,4 @@
-import {GetServerSideProps, GetStaticProps, NextPage} from 'next';
-import {getPosts} from '../../lib/posts';
+import {GetServerSideProps, NextPage} from 'next';
 import Link from 'next/link';
 import {Post} from 'src/entity/Post';
 import qs from 'querystring';
