@@ -1,5 +1,5 @@
 import {NextApiHandler} from 'next';
-import {SignIn} from '../../src/model/SignIn';
+import {SignIn} from 'src/model/SignIn';
 import {withSession} from '../../../lib/withSession';
 
 const Sessions: NextApiHandler = async (req, res) => {
