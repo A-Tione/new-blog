@@ -47,7 +47,8 @@ npm run dev
 
 ## 部署
 
-```bash 
+```bash
+yarn install --production=false
 yarn build
 docker build -t tione/node-wep-app
 yarn start
