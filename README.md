@@ -49,6 +49,7 @@ npm run dev
 
 ```bash 
 yarn build
+docker build -t tione/node-wep-app
 yarn start
 ```
 
