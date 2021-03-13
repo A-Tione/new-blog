@@ -50,7 +50,7 @@ npm run dev
 ```bash
 yarn install --production=false
 yarn build
-docker build -t tione/node-wep-app
+docker build -t tione/node-web-app
 yarn start
 ```
 
