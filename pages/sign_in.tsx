@@ -17,8 +17,9 @@ const SignIn: NextPage<{ user: User }> = (props) => {
       request: formData => axios.post(`/api/v1/sessions`, formData),
       success: ()=> {
         window.alert('登录成功');
-        const query = qs.parse(window.location.search);
-        window.location.href = query.returnTo.toString();
+        const query = qs.parse(window.location.search.substr(1));
+        console.log(query, 'query');
+        window.location.href = query.returnTo ? query.returnTo.toString() : '/';
       }
     }
   });
