@@ -1,5 +1,5 @@
-import PostsIndex, {getStaticProps} from './posts';
+import PostsIndex, {getServerSideProps} from './posts';
 
 export default PostsIndex;
 
-export {getStaticProps};
+export {getServerSideProps};
