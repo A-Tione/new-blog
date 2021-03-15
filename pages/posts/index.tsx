@@ -5,6 +5,7 @@ import {Post} from 'src/entity/Post';
 import Link from 'next/link';
 import qs from 'querystring';
 import {usePager} from '../../hooks/usePager';
+import {User} from '../../src/entity/User';
 
 type Props = {
   posts: Post[];
@@ -12,15 +13,21 @@ type Props = {
   perPage: number;
   page: number;
   totalPage: number;
+  currentUser: User | null;
 }
 const PostsIndex: NextPage<Props> = (props) => {
-  const {posts, count, page, totalPage} = props;
+  const {currentUser, posts, count, page, totalPage} = props;
   const {pager} = usePager({page, totalPage});
   return (
-    <div>
-      <h1>文章列表({props.count}) 每页{props.perPage}</h1>
+    <>
+    <div className="posts">
+      <header>
+        <h1>文章列表</h1>
+        {currentUser && <Link href="/posts/new"><a>新增文章</a></Link>}
+      </header>
+      {}
       {posts.map(post =>
-        <div>
+        <div className="onePost">
           <Link key={post.id} href={`/posts/${post.id}`}>
             <a>
               {post.title}
@@ -32,6 +39,33 @@ const PostsIndex: NextPage<Props> = (props) => {
         {pager}
       </footer>
     </div>
+  <style jsx>{`
+      .posts{
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 16px;
+      }
+      .posts >header{
+        display:flex;
+        align-items: center;
+      }
+      .posts >header > h1{
+         margin: 0;
+         margin-right: auto;
+      }
+      .onePost{
+        border-bottom: 1px solid #ddd;
+        padding: 8px 0;
+      }
+      .onePost > a{
+        border-bottom: none;
+        color: #000;
+      }
+      .onePost > a:hover{
+        color: #00adb5;
+      }
+      `}</style>
+  </>
   );
 };
 export default PostsIndex;

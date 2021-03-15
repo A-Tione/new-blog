@@ -1,5 +1,4 @@
 import {NextPage} from 'next';
-import React from 'react';
 import axios from 'axios';
 import {useForm} from '../../hooks/useForm';
 
@@ -7,21 +6,43 @@ const PostsNew: NextPage = () => {
   const {form} = useForm({
     initFormData: {title: '', content: ''},
     fields: [
-      {label: '标题', type: 'text', key: 'title'},
-      {label: '内容', type: 'textarea', key: 'content'}
+      {label: '大标题', type: 'text', key: 'title'},
+      {label: '内容', type: 'textarea', key: 'content'},
     ],
-    buttons: <button type="submit">提交</button>,
+    buttons: <div className="actions">
+      <button type="submit">提交</button>
+    </div>,
     submit: {
-      request: formData => axios.post('/api/v1/posts', formData),
-      success: ()=> {
+      request: formData => axios.post(`/api/v1/posts`, formData),
+      success: () => {
         window.alert('提交成功');
         window.location.href = '/posts';
       }
     }
   });
   return (
-    <div>
-      {form}
+    <div className="postsNew">
+      <div className="form-wrapper">
+        {form}
+      </div>
+      <style jsx global>{`
+      .form-wrapper{
+        padding: 16px;
+      }
+      .postsNew .field-content textarea{
+        height: 20em;
+        resize: none;
+      }
+      .postsNew .label-text{
+        width: 4em;
+        text-align:right;
+      }
+      .postsNew .actions{
+        text-align:center;
+        background: #ddd;
+        padding: 4px 0;
+      }
+      `}</style>
     </div>
   );
 };
